@@ -1,0 +1,19 @@
+#information {
+    overflow: visible;
+}
+header {
+    text-align: center;
+}
+.disclaimer {
+    text-align: justify;
+}
+
+#information {
+    text-align: center;
+}
+h1,
+h2,
+h3,
+h4 {
+    text-align: center;
+}

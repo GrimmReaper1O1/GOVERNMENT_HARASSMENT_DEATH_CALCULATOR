@@ -9,11 +9,7 @@ const individuals = {
     _countm: 0,
     _countf: 0,
     _count: 0,
-    _names: {
-        'john doe': {},
-        'jane doe': {},
-        
-    },
+    _names: [],
     get names() {
         return this._names;
     },
@@ -40,14 +36,22 @@ const individuals = {
         let rando = this.rGen();
         let truthy = this.removeTime(rando);
         let maleFemale = Math.floor(Math.random() * 2)
-     
+        let age = (Math.floor(Math.random() * 54) + 14);
         if (maleFemale === 0 && truthy) {
-            this._names['john doe']['person'+this._countm] = rando;
-            this._names['john doe'].length = this._countm;
+            this._names[this._count] = {};
+            this._names[this._count].number = this._count;
+            this._names[this._count].gender = 'male';
+            this._names[this._count].durationOfLIfe = rando;
+            this._names[this._count].age = age;
+            this._names[this._count].length = this._count;
             this._countm++;
         } else if (truthy) {
-            this._names['jane doe']['person'+this._countf] = rando;
-            this._names['jane doe'].length = this._countf;
+            this._names[this._count] = {};
+            this._names[this._count].number = this._count;
+            this._names[this._count].gender = 'female';
+            this._names[this._count].durationOfLIfe = rando;
+            this._names[this._count].age = age;
+            this._names[this._count].length = this._count;
             this._countf++;
         }
         this._count++;
@@ -80,52 +84,45 @@ const individuals = {
     let mtwelve = 0;
     let msixteen = 0;
     let mcount = 0
-    for (let i = 0; i <= individuals._names['john doe'].length ; i++) {
-        console.log('here');
-        if (individuals._names['john doe']['person'+i] <= 4) {
-            mfour++;
-        } else if (individuals._names['john doe']['person'+i] <= 6 && individuals._names['john doe']['person'+i] >= 4)  {
-            msix++;
-        } else if (individuals._names['john doe']['person'+i] <= 12 && individuals._names['john doe']['person'+i] >= 6)   {
-            mtwelve++;
-        } else if (individuals._names['john doe']['person'+i] <= 16 && individuals._names['john doe']['person'+i] >= 12)   {
-            msixteen++;
+    for (let i = 0; i < individuals._names.length ; i++) {
+        console.log(i);
+        if (individuals._names[i].durationOfLIfe <= 4) {
+            individuals._names[i].gender === 'male' ? mfour++ : ffour++;
+        } else if (individuals._names[i].durationOfLIfe <= 6 && individuals._names[i].durationOfLIfe >= 4)  {
+            individuals._names[i].gender === 'male' ? msix++ : fsix++;
+        } else if (individuals._names[i].durationOfLIfe <= 12 && individuals._names[i].durationOfLIfe >= 6)   {
+            individuals._names[i].gender === 'male' ? mtwelve++ : ftwelve++;
+        } else if (individuals._names[i].durationOfLIfe <= 16 && individuals._names[i].durationOfLIfe >= 12)   {
+            individuals._names[i].gender === 'male' ? msixteen++ : fsixteen++;
         }
-            mcount++;
+           
     }
-    for (let i = 0; i <= individuals._names['jane doe'].length ; i++) {
-        console.log('here');
-        if (individuals._names['jane doe']['person'+i] <= 4) {
-            ffour++;
-        } else if (individuals._names['jane doe']['person'+i] <= 6 && individuals._names['jane doe']['person'+i] >= 4)  {
-            fsix++;
-        } else if (individuals._names['jane doe']['person'+i] <= 12 && individuals._names['jane doe']['person'+i] >= 6)   {
-            ftwelve++;
-        } else if (individuals._names['jane doe']['person'+i] <= 16 && individuals._names['jane doe']['person'+i] >= 12)   {
-            fsixteen++;
-        }
-            fcount++;
-    }
+   
     $(document).ready(() => {
           let words = `${ffour} females killed and ${mfour} males killed within less than four weeks. ${fsix} females and ${msix} males killed within four to six
-                  weeks. ${ftwelve} females killed and ${mtwelve} males killed within six to twelve weeks. ${ftwelve} females might survive longer and ${mtwelve} 
+                  weeks. ${ftwelve} females killed and ${mtwelve} males killed within six to twelve weeks. ${fsixteen} females might survive longer and ${msixteen} 
                   males might survive longer over a period of eighteen years.`
         wordsOne = `<p>Assuming the team of corrupt federal police officers constantly harrass individuals. Over a duration of eighteen years, a theorized team of corrupt federal police officers could manage to kill via harrassment ${ffour+mfour} people who last less than four weeks. ${msix+fsix} people who last between four and six weeks ${mtwelve+ftwelve } people who live between six and twelve weeks or three months which leaves ${msixteen+fsixteen} people alive whom live for a duration of no less than twelve to sixteen weeks of constant harrassment. If they survive this duratoin they may or may not live for much longer durations. All up ${mcount+fcount} were harrassed and ${(mfour + msix + mtwelve+ffour + fsix + ftwelve)} people were killed.</p>`;
 
        
         let list = ''
-        for (let i = 0; i <= individuals._names['jane doe'].length ; i++) {
+        for (let i = 0; i < individuals._names.length ; i++) {
             
-            list += `<p>jane doe ${i} survived for ${individuals._names['jane doe']['person'+i]} weeks.</p>`;
+            list += `<p>${individuals._names[i].gender === 'male' ? 'John Doe' : 'Jane Doe'} survived `
+            if (individuals._names[i].durationOfLIfe <= 12)   {
+                    list += ' for '
+                  } else {
+                    list += ` past `;
+                  }
+            list += `${individuals._names[i].durationOfLIfe} weeks of intense harassment `; 
+            if (individuals._names[i].durationOfLIfe <= 12)   {
+          list += `and died at the age of ${individuals._names[i].age}.</p>`;
+        
+            } else {
+                list += `.</p>`;
+            }
         }
-        for (let i = 0; i <= individuals._names['john doe'].length ; i++) {
-            
-           list += `<p>john doe ${i} survived for ${individuals._names['john doe']['person'+i]} weeks.</p>`;
-            
-            console.log('here');
-            
-        }
-        $harrassed = $('<div>').append($('<h1>').append((mcount+fcount)+'<br>HARRASSED PEOPLE!'));
+        $harrassed = $('<div>').append($('<h1>').append((individuals._names.length)+'<br>HARRASSED PEOPLE!'));
         $murdered = $('<div>').append($('<h1>').append((mfour + msix + mtwelve+ffour + fsix + ftwelve)+'<br>DEAD PEOPLE!'));
         $mainText.append(wordsOne+words);
         $timeBeforeDeath.append(list);

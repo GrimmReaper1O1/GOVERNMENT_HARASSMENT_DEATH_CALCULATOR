@@ -1,23 +1,42 @@
 body {
     background-color: black;
     color: white;
+    width: 86%;
+    margin: 0 auto;
 }
 #information {
     overflow: visible;
 }
 header {
+    padding: 3rem 2rem;
     text-align: center;
 }
 .disclaimer {
+    
+    padding: 3rem 3rem;
     text-align: justify;
 }
 
 #information {
+    
+    padding: 3rem 3rem;
     text-align: center;
 }
 h1,
 h2,
 h3,
 h4 {
+    
+ 
     text-align: center;
+}
+.backdrop {
+    height: 30rem;
+    
+    padding: 3rem 3rem;
+    background-image: url('../images/sui.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    text-align: justify;
 }
